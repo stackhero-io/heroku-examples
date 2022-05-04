@@ -1,0 +1,10 @@
+🌤  Welcome to Stackhero for Heroku add-ons examples!
+
+Go to an example directory, like Node.js/MySQL:
+$ cd nodejs/mysql/
+
+Then run "make" to get the help:
+$ make
+
+And don't forget to read the README file that is available for each example:
+$ cat README.md

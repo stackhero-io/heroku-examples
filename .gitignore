@@ -1,0 +1,8 @@
+.DS_Store
+*.log
+node_modules/
+yarn.lock
+.env
+.initialized
+stackhero-test.tar.bz2
+package-lock.json

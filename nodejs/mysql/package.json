@@ -1,0 +1,9 @@
+{
+  "name": "mysql",
+  "version": "1.0.0",
+  "main": "app.js",
+  "license": "MIT",
+  "dependencies": {
+    "@mysql/xdevapi": "^8.0.29"
+  }
+}
