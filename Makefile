@@ -31,9 +31,14 @@ run: build
 
 ## HELP: run-password : Run Docker container (Heroku password)
 run-password: build
-	DOCKER_CONTEXT=default docker run \
-		-it \
-		-h stackhero-heroku-examples \
-		-v $(PWD):/stackhero \
-		-e HEROKU_INTERACTIVE=true \
-		stackhero-heroku-examples
+	@DOCKER_CONTEXT=default \
+		docker rm -f stackhero-heroku-examples || true
+	DOCKER_CONTEXT=default \
+		docker run \
+			-it \
+			--rm \
+			--name=stackhero-heroku-examples \
+			-h stackhero-heroku-examples \
+			-v $(PWD):/stackhero \
+			-e HEROKU_INTERACTIVE=true \
+			stackhero-heroku-examples

@@ -17,27 +17,22 @@ checks:
 # DYNO exists only on Heroku's dynos
 ifndef DYNO
 	@heroku -v > /dev/null 2>&1 || (echo "Heroku CLI should be installed on your computer" ; exit 1)
-	@node -v > /dev/null 2>&1 || (echo "Node.js CLI should be installed on your computer" ; exit 1)
-	@npm -v > /dev/null 2>&1 || (echo "NPM CLI should be installed on your computer" ; exit 1)
+	@python3 -V > /dev/null 2>&1 || (echo "Python CLI should be installed on your computer" ; exit 1)
+	@pip3 -V > /dev/null 2>&1 || (echo "PIP CLI should be installed on your computer" ; exit 1)
 	@heroku addons:info ah-mysql-stackhero > /dev/null 2>&1 || (echo "You don't have a Stackhero for MySQL add-on running on this app" ; exit 1)
 endif
 
 init: checks
-ifeq (,$(wildcard ./.initialized))
 # DYNO exists only on Heroku's dynos
 ifndef DYNO
 	heroku config -s > .env
 endif
-
-	npm install
-
-	touch .initialized
-endif
+	pip install --no-warn-script-location --no-cache-dir -r requirements.txt
 
 
 run: init
 	@echo "────────────────────────────────────────────────────────────────────────────────"
-	@node src/app.js
+	@python src/main.py
 	@echo "────────────────────────────────────────────────────────────────────────────────"
 
 
@@ -47,6 +42,7 @@ local: init
 	$(eval include .env)
 	$(eval export $(shell sed -ne 's/ *#.*$$//; /./ s/=.*$$// p' .env))
 	make run
+
 	${INFO} "✅ Successfully ran locally!"
 
 
